@@ -4,9 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ContactApp {
     public static Scanner sc = new Scanner(System.in);
@@ -32,10 +30,14 @@ public class ContactApp {
             case 2:
                 addContacts();
                 break;
+            case 3:
+                searchContactByName();
+                break;
             default:
                 System.out.println("Not an Option");
         }
     }
+
 
     //Prints contacts to console from contacts.txt
     public static void printContacts(){
@@ -50,7 +52,7 @@ public class ContactApp {
             for(String contact : contacts){
                 System.out.println(contact);
             }
-            System.out.println("");
+            System.out.println();
             displayMenu();
         }catch(IOException e){
             e.printStackTrace();
@@ -73,7 +75,7 @@ public class ContactApp {
             String newContactInfo = userInputName +" | "+ userInputNumber;
 
             Files.write(dataFile, Arrays.asList(newContactInfo), StandardOpenOption.APPEND);
-            System.out.println("");
+            System.out.println();
             displayMenu();
 
         }catch(IOException e){
@@ -81,9 +83,34 @@ public class ContactApp {
         }
     }
 
+    //Search Contact by name
+    public static void searchContactByName(){
+        String directory = "data";
+        String filename = "contacts.txt";
+
+
+        Path dataDirectory = Paths.get(directory);
+        Path dataFile = Paths.get(directory, filename);
+
+        try{
+            Input input = new Input();
+            String userInputName = input.getString("Search Contact By Name: ");
+            List<String> contacts = Files.readAllLines(dataFile);
+            for(String contact : contacts){
+                if(contact.toLowerCase().contains(userInputName.toLowerCase())) {
+                    System.out.println(contact);
+                }
+            }
+            System.out.println();
+            displayMenu();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
 
     public static void main(String[] args) {
+
         displayMenu();
     }
 }
