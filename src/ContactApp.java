@@ -125,12 +125,25 @@ public class ContactApp {
             Input input = new Input();
             String userInputName = input.getString("Search Contact By Name: ");
             List<String> contacts = Files.readAllLines(dataFile);
+
+            String[] storeDeletedContact; //
+            String contactToDelete = ""; //
+
             for(String contact : contacts){
-                if(contact.toLowerCase().contains(userInputName.toLowerCase())) {
-                    contacts.remove(userInputName);
-                    System.out.printf("Removed: %s", contact);
+                storeDeletedContact = contact.split( " | ");
+
+                List<String> deleteContacts = Arrays.asList(storeDeletedContact);
+
+                for(String c : deleteContacts){
+                    if(c.toLowerCase().contains(userInputName.toLowerCase())) {
+                        contactToDelete = contact;                    }
                 }
+
             }
+
+            contacts.remove(contactToDelete);
+            Files.write(dataFile, contacts);
+            System.out.println("Deleted: " + contactToDelete);
             System.out.println();
             displayMenu();
         }catch(IOException e){
