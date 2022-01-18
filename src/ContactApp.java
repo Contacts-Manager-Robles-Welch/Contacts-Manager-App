@@ -33,6 +33,9 @@ public class ContactApp {
             case 3:
                 searchContactByName();
                 break;
+            case 4:
+                deleteByName();
+                break;
             default:
                 System.out.println("Not an Option");
         }
@@ -75,6 +78,7 @@ public class ContactApp {
             String newContactInfo = userInputName +" | "+ userInputNumber;
 
             Files.write(dataFile, Arrays.asList(newContactInfo), StandardOpenOption.APPEND);
+            System.out.println("Contact Saved!");
             System.out.println();
             displayMenu();
 
@@ -108,6 +112,31 @@ public class ContactApp {
         }
     }
 
+    // Delete
+    public static void deleteByName(){
+        String directory = "data";
+        String filename = "contacts.txt";
+
+
+        Path dataDirectory = Paths.get(directory);
+        Path dataFile = Paths.get(directory, filename);
+
+        try{
+            Input input = new Input();
+            String userInputName = input.getString("Search Contact By Name: ");
+            List<String> contacts = Files.readAllLines(dataFile);
+            for(String contact : contacts){
+                if(contact.toLowerCase().contains(userInputName.toLowerCase())) {
+                    contacts.remove(userInputName);
+                    System.out.printf("Removed: %s", contact);
+                }
+            }
+            System.out.println();
+            displayMenu();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
 
