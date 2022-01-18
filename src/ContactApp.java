@@ -7,6 +7,10 @@ import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 public class ContactApp {
+    private static final String directory = "data";
+    private static final String filename = "contacts.txt";
+    public Path dataDirectory = Paths.get(directory);
+    public static Path dataFile = Paths.get(directory, filename);
     public static Scanner sc = new Scanner(System.in);
 
     //Displays Menu Options
@@ -44,11 +48,7 @@ public class ContactApp {
 
     //Prints contacts to console from contacts.txt
     public static void printContacts(){
-        String directory = "data";
-        String filename = "contacts.txt";
 
-        Path dataDirectory = Paths.get(directory);
-        Path dataFile = Paths.get(directory, filename);
 
         try{
             List<String> contacts = Files.readAllLines(dataFile);
@@ -64,11 +64,6 @@ public class ContactApp {
 
     //Add a new contact
     public static void addContacts(){
-        String directory = "data";
-        String filename = "contacts.txt";
-
-        Path dataDirectory = Paths.get(directory);
-        Path dataFile = Paths.get(directory, filename);
 
         try{
             Input input = new Input();
@@ -89,12 +84,6 @@ public class ContactApp {
 
     //Search Contact by name
     public static void searchContactByName(){
-        String directory = "data";
-        String filename = "contacts.txt";
-
-
-        Path dataDirectory = Paths.get(directory);
-        Path dataFile = Paths.get(directory, filename);
 
         try{
             Input input = new Input();
@@ -114,12 +103,6 @@ public class ContactApp {
 
     // Delete
     public static void deleteByName(){
-        String directory = "data";
-        String filename = "contacts.txt";
-
-
-        Path dataDirectory = Paths.get(directory);
-        Path dataFile = Paths.get(directory, filename);
 
         try{
             Input input = new Input();

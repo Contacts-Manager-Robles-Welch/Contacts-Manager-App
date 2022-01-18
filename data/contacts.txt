@@ -1,2 +1,3 @@
 Peter Parker | 2345689741
 Tony Stark | 5987463215
+Thor Oddensin | 1222325555
